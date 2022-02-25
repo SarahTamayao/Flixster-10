@@ -41,9 +41,11 @@ class MovieAdapter(
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
             if (isPortrait) {
-                Glide.with(context).load(movie.posterImageUrl).into(ivPoster)
+                Glide.with(context).load(movie.posterImageUrl).placeholder(R.drawable.loading)
+                    .error(R.drawable.placeholder).into(ivPoster)
             } else {
-                Glide.with(context).load(movie.backdropUrl).into(ivPoster)
+                Glide.with(context).load(movie.backdropUrl).placeholder(R.drawable.loading)
+                    .error(R.drawable.placeholder).into(ivPoster)
             }
         }
     }
