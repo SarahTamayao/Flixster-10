@@ -1,5 +1,6 @@
 package com.chenming.flixster
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,9 +28,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val orientation = resources.configuration.orientation
+        var isPortrait = true
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            isPortrait = true
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            isPortrait = false
+        }
+
         rvMovies = findViewById(R.id.rvMovies)
 
-        val movieAdapter = MovieAdapter(this, movies)
+        val movieAdapter = MovieAdapter(this, movies, isPortrait)
         rvMovies.adapter = movieAdapter
         rvMovies.layoutManager = LinearLayoutManager(this)
 
@@ -54,9 +64,7 @@ class MainActivity : AppCompatActivity() {
                 } catch (e: JSONException) {
                     Log.e(TAG, "Encountered exception $e")
                 }
-
             }
-
         })
     }
 }

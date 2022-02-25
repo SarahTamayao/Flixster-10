@@ -11,7 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 private const val TAG = "MovieAdapter"
-class MovieAdapter(private val context: Context, private val movies: List<Movie>)
+
+class MovieAdapter(
+    private val context: Context,
+    private val movies: List<Movie>,
+    val isPortrait: Boolean
+)
     : RecyclerView.Adapter<MovieAdapter.ViewHolder>(){
     // Expensive operation: create a view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,7 +40,11 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
         fun bind(movie: Movie) {
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
-            Glide.with(context).load(movie.posterImageUrl).into(ivPoster)
+            if (isPortrait) {
+                Glide.with(context).load(movie.posterImageUrl).into(ivPoster)
+            } else {
+                Glide.with(context).load(movie.backdropUrl).into(ivPoster)
+            }
         }
     }
 }
