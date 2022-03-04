@@ -12,11 +12,10 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import okhttp3.Headers
 
-private const val YOUTUBE_API_KEY = "AIzaSyAmh7010OzwrNSvHYNS6IX46lDH206jkE4"
+
 private const val TRAILERS_URL = "https://api.themoviedb.org/3/movie/%d/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
 private const val TAG = "DetailActivity"
 class DetailActivity : YouTubeBaseActivity() {
-
     private lateinit var tvTitle: TextView
     private lateinit var tvOverview: TextView
     private lateinit var ratingBar: RatingBar
@@ -67,7 +66,8 @@ class DetailActivity : YouTubeBaseActivity() {
     }
 
     private fun initializeYoutube(youtubeKey: String) {
-        ytPlayerView.initialize(YOUTUBE_API_KEY, object: YouTubePlayer.OnInitializedListener {
+        val key = getString(R.string.youtube_api_key)
+        ytPlayerView.initialize(key, object: YouTubePlayer.OnInitializedListener {
             override fun onInitializationSuccess(
                 provider: YouTubePlayer.Provider?,
                 player: YouTubePlayer?,

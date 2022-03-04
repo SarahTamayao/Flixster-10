@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 const val MOVIE_EXTRA = "MOVIE_EXTRA"
 private const val TAG = "MovieAdapter"
@@ -48,11 +48,17 @@ class MovieAdapter(
         fun bind(movie: Movie) {
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
+            val radius = 40
+            val margin = 10
             if (isPortrait) {
-                Glide.with(context).load(movie.posterImageUrl).placeholder(R.drawable.loading)
+                Glide.with(context).load(movie.posterImageUrl).fitCenter()
+                    .transform(RoundedCornersTransformation(radius, margin))
+                    .placeholder(R.drawable.loading)
                     .error(R.drawable.placeholder).into(ivPoster)
             } else {
-                Glide.with(context).load(movie.backdropUrl).placeholder(R.drawable.loading)
+                Glide.with(context).load(movie.backdropUrl).fitCenter()
+                    .transform(RoundedCornersTransformation(radius, margin))
+                    .placeholder(R.drawable.loading)
                     .error(R.drawable.placeholder).into(ivPoster)
             }
         }
